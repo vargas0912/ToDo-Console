@@ -1,0 +1,14 @@
+{
+  "name": "tareas",
+  "version": "1.0.0",
+  "description": "Tareas por hacer",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "GVV",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
