@@ -21,6 +21,12 @@ class Tasks {
         this._listTasks = {};
     }
 
+    deleteTask(id = ''){
+        if (this._listTasks[id]){
+            delete this._listTasks[id];
+        }
+    }
+
     createTask( desc = '') {
         const task = new Task(desc);
 
@@ -56,7 +62,7 @@ class Tasks {
                 if (finishOn){
                     counter += 1;
                     
-                    console.log(`${ (counter + '.').green } ${ desc } :: ${ finishOn }`);
+                    console.log(`${ (counter + '.').green } ${ desc } :: ${ finishOn.green }`);
                 }
             }else{
                 if (!finish){
@@ -67,6 +73,22 @@ class Tasks {
             }
             
  
+        });
+    }
+
+    toggleComplete( ids = [] ) {
+        ids.forEach ( id => {
+            const task = this._listTasks[id];
+
+            if ( !task.finishOn ) {
+                task.finishOn = new Date().toISOString();
+            }
+        });
+
+        this.listArr.forEach ( task => {
+            if ( !ids.includes( task.id )) {
+                this._listTasks[task.id].finishOn = null;                
+            }
         });
     }
 }

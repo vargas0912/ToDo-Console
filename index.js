@@ -5,7 +5,10 @@ const { saveData, readData } = require("./helpers/saveFile");
 const { 
      inquirerMenu, 
      pause,
-     readInput
+     readInput, 
+     listTasksForDelete,
+     confirmDeleteTask,
+     listTasksForComplete     
 } = require("./helpers/inquirer");
 
 const Tasks = require("./models/tasks");
@@ -43,6 +46,26 @@ const main = async() => {
                     break;
                case 4:
                     tasks.listfinishPending ( false );
+                    break;
+               case 5:
+                    const taskFinished = await listTasksForComplete( tasks.listArr );
+
+                    tasks.toggleComplete ( taskFinished );                    
+                    break;
+               case 6:
+                    const id = await listTasksForDelete( tasks.listArr );
+
+                    if (id !== 0)
+                    {
+                         const deleteOk = await confirmDeleteTask( 'Are you sure?' );
+                         
+                         if ( deleteOk  ){
+                              tasks.deleteTask( id );
+                              console.log('Task has been deleted.');
+                         }
+                    } 
+
+                    //console.log(id);
                     break;
           }
 
